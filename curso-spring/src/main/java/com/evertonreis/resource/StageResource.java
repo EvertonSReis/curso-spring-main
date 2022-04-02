@@ -1,12 +1,14 @@
 package com.evertonreis.resource;
 
 import com.evertonreis.domain.Stage;
+import com.evertonreis.dto.StageSavedto;
 import com.evertonreis.services.StageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Optional;
 
 @RestController
@@ -17,7 +19,8 @@ public class StageResource {
     private StageService service;
 
     @PostMapping
-    public ResponseEntity<Stage> save(@RequestBody Stage stage){
+    public ResponseEntity<Stage> save(@RequestBody @Valid StageSavedto stagedto){
+        Stage stage = stagedto.transformToStage();
         Stage createdStage = service.save(stage);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdStage);
     }

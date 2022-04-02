@@ -52,7 +52,7 @@ public class RequestRepositoryTest {
         Optional<Request> result = repository.findById(1l);
         Request request = result.get();
 
-        assertThat(request.getDescição()).isEqualTo("procurando notebooks");
+        assertThat(request.getDescricao()).isEqualTo("procurando notebooks");
     }
 
     @Test

@@ -3,6 +3,8 @@ package com.evertonreis.resource;
 import com.evertonreis.domain.Request;
 import com.evertonreis.domain.Stage;
 import com.evertonreis.domain.Usuario;
+import com.evertonreis.dto.RequestSavedto;
+import com.evertonreis.dto.RequestUpdatedto;
 import com.evertonreis.model.PageModel;
 import com.evertonreis.model.PageRequestModel;
 import com.evertonreis.services.RequestService;
@@ -12,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -24,13 +27,15 @@ public class RequestResource {
     private StageService stageService;
 
     @PostMapping
-    public ResponseEntity<Request> save(@RequestBody Request request){
+    public ResponseEntity<Request> save(@RequestBody @Valid RequestSavedto requestdto){
+        Request request = requestdto.transformToRequest();
         Request createdRequest  = service.save(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdRequest);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Request> update(@PathVariable(name = "id") Long id,@RequestBody Request request){
+    public ResponseEntity<Request> update(@PathVariable(name = "id") Long id,@RequestBody RequestUpdatedto requestdto){
+        Request request = requestdto.transformToRequest();
         request.setId(id);
 
         Request updateRequest = service.save(request);

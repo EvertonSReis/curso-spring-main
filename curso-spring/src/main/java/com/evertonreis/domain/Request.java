@@ -28,7 +28,7 @@ public class Request implements Serializable {
     private String subject;
 
     @Column(columnDefinition = "text")
-    private String descição;
+    private String descricao;
 
     @Column(nullable = false, updatable = false)
     @Temporal(TemporalType.DATE)
